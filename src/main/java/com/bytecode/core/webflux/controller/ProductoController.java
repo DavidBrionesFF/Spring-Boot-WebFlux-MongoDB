@@ -3,12 +3,14 @@ package com.bytecode.core.webflux.controller;
 import com.bytecode.core.webflux.model.Producto;
 import com.bytecode.core.webflux.repository.ProductoRep;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.stream.Stream;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,6 +31,6 @@ public class ProductoController {
     @GetMapping("/productos")
     public Flux<Producto> getProductos(){
         return _productoRep.findAll()
-                .delayElements(Duration.ofSeconds(4));
+                .delaySequence(Duration.ofSeconds(4));
     }
 }
